@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<title>Polybot MFI — Walk-Forward Matrix v2</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 1400px; margin: 2em auto; padding: 0 1em; color: #222; }
+h1 { border-bottom: 2px solid #333; padding-bottom: 0.3em; }
+h2 { color: #555; margin-top: 2em; border-bottom: 1px solid #ddd; padding-bottom: 0.2em; }
+h3 { color: #777; }
+table { border-collapse: collapse; margin: 1em 0; font-size: 0.85em; }
+th { background: #f5f5f5; padding: 0.4em 0.6em; border: 1px solid #ccc; text-align: left; }
+td { padding: 0.3em 0.6em; border: 1px solid #ccc; text-align: right; }
+td.cell-text { text-align: center; font-weight: 600; }
+td.label { text-align: left; font-weight: 600; background: #fafafa; }
+.green { color: #0a6f0a; font-weight: 600; }
+.red { color: #aa3030; font-weight: 600; }
+.muted { color: #999; }
+.note { font-size: 0.9em; color: #666; }
+</style>
+</head><body>
+<h1>Polybot MFI — Walk-Forward Validation Matrix v2</h1>
+<p class="note"><strong>Train:</strong> events ≤ 2026-02-05 &nbsp; <strong>Holdout:</strong> events > 2026-02-05<br>
+<strong>Total cells:</strong> 1,200 (240 cells × 5 filters) &nbsp; <strong>Scope:</strong> low ∈ [0.05, 0.40], high ∈ [0.10, 0.60]</p>
+<h2>Heatmap: HOLDOUT ROI by (low, high) — Filter EXP_HIGH+MID ≥50%</h2>
+<h3>Duration: ≤1h</h3>
+<table>
+<thead><tr><th>low \ high</th>
+<th>0.10</th>
+<th>0.15</th>
+<th>0.20</th>
+<th>0.25</th>
+<th>0.30</th>
+<th>0.35</th>
+<th>0.40</th>
+<th>0.45</th>
+<th>0.50</th>
+<th>0.55</th>
+<th>0.60</th>
+</tr></thead><tbody>
+<tr><td class="label">0.05</td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=401, ROI=+47.1%">+47%<br><span style="font-size:0.7em; opacity:0.8">n=401</span></td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=226, ROI=+35.7%">+36%<br><span style="font-size:0.7em; opacity:0.8">n=226</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=137, ROI=+24.1%">+24%<br><span style="font-size:0.7em; opacity:0.8">n=137</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=107, ROI=+27.1%">+27%<br><span style="font-size:0.7em; opacity:0.8">n=107</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=82, ROI=+26.0%">+26%<br><span style="font-size:0.7em; opacity:0.8">n=82</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=71, ROI=+4.6%">+5%<br><span style="font-size:0.7em; opacity:0.8">n=71</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=65, ROI=+0.0%">+0%<br><span style="font-size:0.7em; opacity:0.8">n=65</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=58, ROI=-8.0%">-8%<br><span style="font-size:0.7em; opacity:0.8">n=58</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=45, ROI=-20.0%">-20%<br><span style="font-size:0.7em; opacity:0.8">n=45</span></td>
+<td class="cell-text" style="background:#cc3030; color:#fff;" title="N=41, ROI=-24.6%">-25%<br><span style="font-size:0.7em; opacity:0.8">n=41</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=26, ROI=-10.3%">-10%<br><span style="font-size:0.7em; opacity:0.8">n=26</span></td>
+</tr>
+<tr><td class="label">0.10</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=928, ROI=+22.1%">+22%<br><span style="font-size:0.7em; opacity:0.8">n=928</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=504, ROI=+18.1%">+18%<br><span style="font-size:0.7em; opacity:0.8">n=504</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=354, ROI=+16.4%">+16%<br><span style="font-size:0.7em; opacity:0.8">n=354</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=271, ROI=+4.6%">+5%<br><span style="font-size:0.7em; opacity:0.8">n=271</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=214, ROI=-6.5%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=214</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=184, ROI=-13.0%">-13%<br><span style="font-size:0.7em; opacity:0.8">n=184</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=153, ROI=-14.3%">-14%<br><span style="font-size:0.7em; opacity:0.8">n=153</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=121, ROI=-17.4%">-17%<br><span style="font-size:0.7em; opacity:0.8">n=121</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=108, ROI=-17.5%">-18%<br><span style="font-size:0.7em; opacity:0.8">n=108</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=83, ROI=-13.7%">-14%<br><span style="font-size:0.7em; opacity:0.8">n=83</span></td>
+</tr>
+<tr><td class="label">0.15</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=1185, ROI=+30.0%">+30%<br><span style="font-size:0.7em; opacity:0.8">n=1185</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=682, ROI=+15.5%">+16%<br><span style="font-size:0.7em; opacity:0.8">n=682</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=505, ROI=+5.0%">+5%<br><span style="font-size:0.7em; opacity:0.8">n=505</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=372, ROI=-3.2%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=372</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=297, ROI=-9.9%">-10%<br><span style="font-size:0.7em; opacity:0.8">n=297</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=243, ROI=-11.3%">-11%<br><span style="font-size:0.7em; opacity:0.8">n=243</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=193, ROI=-11.9%">-12%<br><span style="font-size:0.7em; opacity:0.8">n=193</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=179, ROI=-16.7%">-17%<br><span style="font-size:0.7em; opacity:0.8">n=179</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=144, ROI=-10.9%">-11%<br><span style="font-size:0.7em; opacity:0.8">n=144</span></td>
+</tr>
+<tr><td class="label">0.20</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=1450, ROI=+21.4%">+21%<br><span style="font-size:0.7em; opacity:0.8">n=1450</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=878, ROI=+11.2%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=878</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=628, ROI=+3.7%">+4%<br><span style="font-size:0.7em; opacity:0.8">n=628</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=469, ROI=-3.0%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=469</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=369, ROI=-3.0%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=369</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=285, ROI=-6.0%">-6%<br><span style="font-size:0.7em; opacity:0.8">n=285</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=246, ROI=-9.1%">-9%<br><span style="font-size:0.7em; opacity:0.8">n=246</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=192, ROI=-9.7%">-10%<br><span style="font-size:0.7em; opacity:0.8">n=192</span></td>
+</tr>
+<tr><td class="label">0.25</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1619, ROI=+12.2%">+12%<br><span style="font-size:0.7em; opacity:0.8">n=1619</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1039, ROI=+7.2%">+7%<br><span style="font-size:0.7em; opacity:0.8">n=1039</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=739, ROI=+2.2%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=739</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=569, ROI=-0.8%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=569</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=431, ROI=+0.7%">+1%<br><span style="font-size:0.7em; opacity:0.8">n=431</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=373, ROI=-4.9%">-5%<br><span style="font-size:0.7em; opacity:0.8">n=373</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=280, ROI=-8.3%">-8%<br><span style="font-size:0.7em; opacity:0.8">n=280</span></td>
+</tr>
+<tr><td class="label">0.30</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1902, ROI=+14.0%">+14%<br><span style="font-size:0.7em; opacity:0.8">n=1902</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1146, ROI=+11.3%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=1146</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=814, ROI=+6.7%">+7%<br><span style="font-size:0.7em; opacity:0.8">n=814</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=612, ROI=+5.6%">+6%<br><span style="font-size:0.7em; opacity:0.8">n=612</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=508, ROI=-3.0%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=508</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=363, ROI=-7.3%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=363</span></td>
+</tr>
+<tr><td class="label">0.35</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1910, ROI=+14.9%">+15%<br><span style="font-size:0.7em; opacity:0.8">n=1910</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1234, ROI=+9.1%">+9%<br><span style="font-size:0.7em; opacity:0.8">n=1234</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=878, ROI=+5.9%">+6%<br><span style="font-size:0.7em; opacity:0.8">n=878</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=697, ROI=-1.1%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=697</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=520, ROI=-4.5%">-4%<br><span style="font-size:0.7em; opacity:0.8">n=520</span></td>
+</tr>
+<tr><td class="label">0.40</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=2105, ROI=+9.4%">+9%<br><span style="font-size:0.7em; opacity:0.8">n=2105</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=1324, ROI=+3.6%">+4%<br><span style="font-size:0.7em; opacity:0.8">n=1324</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=1001, ROI=-2.3%">-2%<br><span style="font-size:0.7em; opacity:0.8">n=1001</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=737, ROI=-6.4%">-6%<br><span style="font-size:0.7em; opacity:0.8">n=737</span></td>
+</tr>
+</tbody></table>
+<h3>Duration: ≤6h</h3>
+<table>
+<thead><tr><th>low \ high</th>
+<th>0.10</th>
+<th>0.15</th>
+<th>0.20</th>
+<th>0.25</th>
+<th>0.30</th>
+<th>0.35</th>
+<th>0.40</th>
+<th>0.45</th>
+<th>0.50</th>
+<th>0.55</th>
+<th>0.60</th>
+</tr></thead><tbody>
+<tr><td class="label">0.05</td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=483, ROI=+53.2%">+53%<br><span style="font-size:0.7em; opacity:0.8">n=483</span></td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=297, ROI=+39.2%">+39%<br><span style="font-size:0.7em; opacity:0.8">n=297</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=193, ROI=+26.9%">+27%<br><span style="font-size:0.7em; opacity:0.8">n=193</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=157, ROI=+17.2%">+17%<br><span style="font-size:0.7em; opacity:0.8">n=157</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=130, ROI=+12.8%">+13%<br><span style="font-size:0.7em; opacity:0.8">n=130</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=117, ROI=-2.3%">-2%<br><span style="font-size:0.7em; opacity:0.8">n=117</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=98, ROI=-3.1%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=98</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=88, ROI=-6.6%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=88</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=72, ROI=-13.9%">-14%<br><span style="font-size:0.7em; opacity:0.8">n=72</span></td>
+<td class="cell-text" style="background:#cc3030; color:#fff;" title="N=69, ROI=-20.9%">-21%<br><span style="font-size:0.7em; opacity:0.8">n=69</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=49, ROI=-8.2%">-8%<br><span style="font-size:0.7em; opacity:0.8">n=49</span></td>
+</tr>
+<tr><td class="label">0.10</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=1067, ROI=+25.6%">+26%<br><span style="font-size:0.7em; opacity:0.8">n=1067</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=621, ROI=+20.8%">+21%<br><span style="font-size:0.7em; opacity:0.8">n=621</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=437, ROI=+18.1%">+18%<br><span style="font-size:0.7em; opacity:0.8">n=437</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=350, ROI=+5.7%">+6%<br><span style="font-size:0.7em; opacity:0.8">n=350</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=280, ROI=-6.1%">-6%<br><span style="font-size:0.7em; opacity:0.8">n=280</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=241, ROI=-13.9%">-14%<br><span style="font-size:0.7em; opacity:0.8">n=241</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=207, ROI=-15.2%">-15%<br><span style="font-size:0.7em; opacity:0.8">n=207</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=170, ROI=-15.3%">-15%<br><span style="font-size:0.7em; opacity:0.8">n=170</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=158, ROI=-19.4%">-19%<br><span style="font-size:0.7em; opacity:0.8">n=158</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=127, ROI=-14.7%">-15%<br><span style="font-size:0.7em; opacity:0.8">n=127</span></td>
+</tr>
+<tr><td class="label">0.15</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=1351, ROI=+31.8%">+32%<br><span style="font-size:0.7em; opacity:0.8">n=1351</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=811, ROI=+19.4%">+19%<br><span style="font-size:0.7em; opacity:0.8">n=811</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=618, ROI=+6.8%">+7%<br><span style="font-size:0.7em; opacity:0.8">n=618</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=471, ROI=-1.1%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=471</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=382, ROI=-5.8%">-6%<br><span style="font-size:0.7em; opacity:0.8">n=382</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=322, ROI=-6.1%">-6%<br><span style="font-size:0.7em; opacity:0.8">n=322</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=259, ROI=-6.6%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=259</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=239, ROI=-12.5%">-13%<br><span style="font-size:0.7em; opacity:0.8">n=239</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=200, ROI=-7.5%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=200</span></td>
+</tr>
+<tr><td class="label">0.20</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=1615, ROI=+22.6%">+23%<br><span style="font-size:0.7em; opacity:0.8">n=1615</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1025, ROI=+11.9%">+12%<br><span style="font-size:0.7em; opacity:0.8">n=1025</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=745, ROI=+5.8%">+6%<br><span style="font-size:0.7em; opacity:0.8">n=745</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=585, ROI=+1.7%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=585</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=467, ROI=+1.4%">+1%<br><span style="font-size:0.7em; opacity:0.8">n=467</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=366, ROI=-2.7%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=366</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=324, ROI=-7.4%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=324</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=263, ROI=-8.7%">-9%<br><span style="font-size:0.7em; opacity:0.8">n=263</span></td>
+</tr>
+<tr><td class="label">0.25</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1782, ROI=+12.4%">+12%<br><span style="font-size:0.7em; opacity:0.8">n=1782</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1170, ROI=+7.9%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=1170</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=869, ROI=+4.4%">+4%<br><span style="font-size:0.7em; opacity:0.8">n=869</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=679, ROI=+2.4%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=679</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=530, ROI=+1.1%">+1%<br><span style="font-size:0.7em; opacity:0.8">n=530</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=460, ROI=-3.2%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=460</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=361, ROI=-5.8%">-6%<br><span style="font-size:0.7em; opacity:0.8">n=361</span></td>
+</tr>
+<tr><td class="label">0.30</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=2075, ROI=+15.9%">+16%<br><span style="font-size:0.7em; opacity:0.8">n=2075</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1321, ROI=+12.6%">+13%<br><span style="font-size:0.7em; opacity:0.8">n=1321</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=964, ROI=+9.3%">+9%<br><span style="font-size:0.7em; opacity:0.8">n=964</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=745, ROI=+7.7%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=745</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=628, ROI=+1.6%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=628</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=460, ROI=-2.5%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=460</span></td>
+</tr>
+<tr><td class="label">0.35</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=2113, ROI=+16.9%">+17%<br><span style="font-size:0.7em; opacity:0.8">n=2113</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1404, ROI=+10.8%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=1404</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1031, ROI=+7.9%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=1031</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=825, ROI=+1.6%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=825</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=622, ROI=-1.4%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=622</span></td>
+</tr>
+<tr><td class="label">0.40</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=2304, ROI=+11.0%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=2304</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1496, ROI=+5.3%">+5%<br><span style="font-size:0.7em; opacity:0.8">n=1496</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=1156, ROI=+0.0%">+0%<br><span style="font-size:0.7em; opacity:0.8">n=1156</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=870, ROI=-3.4%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=870</span></td>
+</tr>
+</tbody></table>
+<h3>Duration: ≤24h</h3>
+<table>
+<thead><tr><th>low \ high</th>
+<th>0.10</th>
+<th>0.15</th>
+<th>0.20</th>
+<th>0.25</th>
+<th>0.30</th>
+<th>0.35</th>
+<th>0.40</th>
+<th>0.45</th>
+<th>0.50</th>
+<th>0.55</th>
+<th>0.60</th>
+</tr></thead><tbody>
+<tr><td class="label">0.05</td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=513, ROI=+50.1%">+50%<br><span style="font-size:0.7em; opacity:0.8">n=513</span></td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=326, ROI=+37.0%">+37%<br><span style="font-size:0.7em; opacity:0.8">n=326</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=219, ROI=+21.0%">+21%<br><span style="font-size:0.7em; opacity:0.8">n=219</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=181, ROI=+17.1%">+17%<br><span style="font-size:0.7em; opacity:0.8">n=181</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=152, ROI=+9.6%">+10%<br><span style="font-size:0.7em; opacity:0.8">n=152</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=139, ROI=-5.4%">-5%<br><span style="font-size:0.7em; opacity:0.8">n=139</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=123, ROI=-6.5%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=123</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=113, ROI=-15.4%">-15%<br><span style="font-size:0.7em; opacity:0.8">n=113</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=97, ROI=-17.5%">-18%<br><span style="font-size:0.7em; opacity:0.8">n=97</span></td>
+<td class="cell-text" style="background:#cc3030; color:#fff;" title="N=90, ROI=-23.2%">-23%<br><span style="font-size:0.7em; opacity:0.8">n=90</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=67, ROI=-12.9%">-13%<br><span style="font-size:0.7em; opacity:0.8">n=67</span></td>
+</tr>
+<tr><td class="label">0.10</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=1123, ROI=+27.0%">+27%<br><span style="font-size:0.7em; opacity:0.8">n=1123</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=676, ROI=+21.3%">+21%<br><span style="font-size:0.7em; opacity:0.8">n=676</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=490, ROI=+22.4%">+22%<br><span style="font-size:0.7em; opacity:0.8">n=490</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=399, ROI=+9.4%">+9%<br><span style="font-size:0.7em; opacity:0.8">n=399</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=332, ROI=-0.2%">-0%<br><span style="font-size:0.7em; opacity:0.8">n=332</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=294, ROI=-3.9%">-4%<br><span style="font-size:0.7em; opacity:0.8">n=294</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=251, ROI=-7.9%">-8%<br><span style="font-size:0.7em; opacity:0.8">n=251</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=216, ROI=-8.3%">-8%<br><span style="font-size:0.7em; opacity:0.8">n=216</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=202, ROI=-12.7%">-13%<br><span style="font-size:0.7em; opacity:0.8">n=202</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=170, ROI=-6.9%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=170</span></td>
+</tr>
+<tr><td class="label">0.15</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=1410, ROI=+33.3%">+33%<br><span style="font-size:0.7em; opacity:0.8">n=1410</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=868, ROI=+20.7%">+21%<br><span style="font-size:0.7em; opacity:0.8">n=868</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=666, ROI=+7.1%">+7%<br><span style="font-size:0.7em; opacity:0.8">n=666</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=518, ROI=+0.9%">+1%<br><span style="font-size:0.7em; opacity:0.8">n=518</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=425, ROI=-3.5%">-4%<br><span style="font-size:0.7em; opacity:0.8">n=425</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=353, ROI=-4.3%">-4%<br><span style="font-size:0.7em; opacity:0.8">n=353</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=297, ROI=-4.4%">-4%<br><span style="font-size:0.7em; opacity:0.8">n=297</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=278, ROI=-9.7%">-10%<br><span style="font-size:0.7em; opacity:0.8">n=278</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=240, ROI=-3.5%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=240</span></td>
+</tr>
+<tr><td class="label">0.20</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=1669, ROI=+22.9%">+23%<br><span style="font-size:0.7em; opacity:0.8">n=1669</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1080, ROI=+12.7%">+13%<br><span style="font-size:0.7em; opacity:0.8">n=1080</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=797, ROI=+6.8%">+7%<br><span style="font-size:0.7em; opacity:0.8">n=797</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=635, ROI=+3.9%">+4%<br><span style="font-size:0.7em; opacity:0.8">n=635</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=508, ROI=+3.2%">+3%<br><span style="font-size:0.7em; opacity:0.8">n=508</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=410, ROI=+0.5%">+0%<br><span style="font-size:0.7em; opacity:0.8">n=410</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=373, ROI=-4.0%">-4%<br><span style="font-size:0.7em; opacity:0.8">n=373</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=316, ROI=-4.5%">-5%<br><span style="font-size:0.7em; opacity:0.8">n=316</span></td>
+</tr>
+<tr><td class="label">0.25</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1843, ROI=+13.8%">+14%<br><span style="font-size:0.7em; opacity:0.8">n=1843</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1239, ROI=+10.5%">+10%<br><span style="font-size:0.7em; opacity:0.8">n=1239</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=936, ROI=+7.1%">+7%<br><span style="font-size:0.7em; opacity:0.8">n=936</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=740, ROI=+4.5%">+5%<br><span style="font-size:0.7em; opacity:0.8">n=740</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=592, ROI=+2.4%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=592</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=525, ROI=-2.0%">-2%<br><span style="font-size:0.7em; opacity:0.8">n=525</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=430, ROI=-3.1%">-3%<br><span style="font-size:0.7em; opacity:0.8">n=430</span></td>
+</tr>
+<tr><td class="label">0.30</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=2130, ROI=+17.1%">+17%<br><span style="font-size:0.7em; opacity:0.8">n=2130</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1389, ROI=+13.2%">+13%<br><span style="font-size:0.7em; opacity:0.8">n=1389</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1029, ROI=+10.6%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=1029</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=805, ROI=+8.1%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=805</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=684, ROI=+2.3%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=684</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=529, ROI=-1.1%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=529</span></td>
+</tr>
+<tr><td class="label">0.35</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=2160, ROI=+16.6%">+17%<br><span style="font-size:0.7em; opacity:0.8">n=2160</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1468, ROI=+11.4%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=1468</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1099, ROI=+8.3%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=1099</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=887, ROI=+2.7%">+3%<br><span style="font-size:0.7em; opacity:0.8">n=887</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=684, ROI=-0.1%">-0%<br><span style="font-size:0.7em; opacity:0.8">n=684</span></td>
+</tr>
+<tr><td class="label">0.40</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=2358, ROI=+10.8%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=2358</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1566, ROI=+5.6%">+6%<br><span style="font-size:0.7em; opacity:0.8">n=1566</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=1226, ROI=+1.7%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=1226</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=950, ROI=-2.3%">-2%<br><span style="font-size:0.7em; opacity:0.8">n=950</span></td>
+</tr>
+</tbody></table>
+<h3>Duration: all</h3>
+<table>
+<thead><tr><th>low \ high</th>
+<th>0.10</th>
+<th>0.15</th>
+<th>0.20</th>
+<th>0.25</th>
+<th>0.30</th>
+<th>0.35</th>
+<th>0.40</th>
+<th>0.45</th>
+<th>0.50</th>
+<th>0.55</th>
+<th>0.60</th>
+</tr></thead><tbody>
+<tr><td class="label">0.05</td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=537, ROI=+47.1%">+47%<br><span style="font-size:0.7em; opacity:0.8">n=537</span></td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=352, ROI=+36.4%">+36%<br><span style="font-size:0.7em; opacity:0.8">n=352</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=245, ROI=+24.5%">+24%<br><span style="font-size:0.7em; opacity:0.8">n=245</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=204, ROI=+21.6%">+22%<br><span style="font-size:0.7em; opacity:0.8">n=204</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=171, ROI=+13.1%">+13%<br><span style="font-size:0.7em; opacity:0.8">n=171</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=159, ROI=-4.8%">-5%<br><span style="font-size:0.7em; opacity:0.8">n=159</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=139, ROI=-4.7%">-5%<br><span style="font-size:0.7em; opacity:0.8">n=139</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=131, ROI=-10.1%">-10%<br><span style="font-size:0.7em; opacity:0.8">n=131</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=112, ROI=-14.3%">-14%<br><span style="font-size:0.7em; opacity:0.8">n=112</span></td>
+<td class="cell-text" style="background:#ff9090; color:#222;" title="N=106, ROI=-16.0%">-16%<br><span style="font-size:0.7em; opacity:0.8">n=106</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=83, ROI=-5.6%">-6%<br><span style="font-size:0.7em; opacity:0.8">n=83</span></td>
+</tr>
+<tr><td class="label">0.10</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=1134, ROI=+27.6%">+28%<br><span style="font-size:0.7em; opacity:0.8">n=1134</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=698, ROI=+22.5%">+22%<br><span style="font-size:0.7em; opacity:0.8">n=698</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=510, ROI=+24.7%">+25%<br><span style="font-size:0.7em; opacity:0.8">n=510</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=422, ROI=+12.2%">+12%<br><span style="font-size:0.7em; opacity:0.8">n=422</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=355, ROI=+2.2%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=355</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=318, ROI=-1.7%">-2%<br><span style="font-size:0.7em; opacity:0.8">n=318</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=282, ROI=-3.9%">-4%<br><span style="font-size:0.7em; opacity:0.8">n=282</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=244, ROI=-4.9%">-5%<br><span style="font-size:0.7em; opacity:0.8">n=244</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=231, ROI=-7.1%">-7%<br><span style="font-size:0.7em; opacity:0.8">n=231</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=201, ROI=-1.3%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=201</span></td>
+</tr>
+<tr><td class="label">0.15</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#0a7f0a; color:#fff;" title="N=1422, ROI=+33.3%">+33%<br><span style="font-size:0.7em; opacity:0.8">n=1422</span></td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=889, ROI=+21.5%">+21%<br><span style="font-size:0.7em; opacity:0.8">n=889</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=689, ROI=+7.9%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=689</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=537, ROI=+2.2%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=537</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=449, ROI=-1.4%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=449</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=384, ROI=-1.6%">-2%<br><span style="font-size:0.7em; opacity:0.8">n=384</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=330, ROI=-1.8%">-2%<br><span style="font-size:0.7em; opacity:0.8">n=330</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#222;" title="N=310, ROI=-5.6%">-6%<br><span style="font-size:0.7em; opacity:0.8">n=310</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=272, ROI=+0.5%">+0%<br><span style="font-size:0.7em; opacity:0.8">n=272</span></td>
+</tr>
+<tr><td class="label">0.20</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=1689, ROI=+24.1%">+24%<br><span style="font-size:0.7em; opacity:0.8">n=1689</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1105, ROI=+14.0%">+14%<br><span style="font-size:0.7em; opacity:0.8">n=1105</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=821, ROI=+8.2%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=821</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=662, ROI=+5.4%">+5%<br><span style="font-size:0.7em; opacity:0.8">n=662</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=544, ROI=+5.8%">+6%<br><span style="font-size:0.7em; opacity:0.8">n=544</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=448, ROI=+3.1%">+3%<br><span style="font-size:0.7em; opacity:0.8">n=448</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=412, ROI=-0.3%">-0%<br><span style="font-size:0.7em; opacity:0.8">n=412</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=355, ROI=-0.9%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=355</span></td>
+</tr>
+<tr><td class="label">0.25</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1853, ROI=+14.2%">+14%<br><span style="font-size:0.7em; opacity:0.8">n=1853</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1260, ROI=+11.3%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=1260</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=963, ROI=+8.0%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=963</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=772, ROI=+5.6%">+6%<br><span style="font-size:0.7em; opacity:0.8">n=772</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=636, ROI=+3.5%">+3%<br><span style="font-size:0.7em; opacity:0.8">n=636</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=570, ROI=-0.2%">-0%<br><span style="font-size:0.7em; opacity:0.8">n=570</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=475, ROI=-0.7%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=475</span></td>
+</tr>
+<tr><td class="label">0.30</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=2139, ROI=+17.1%">+17%<br><span style="font-size:0.7em; opacity:0.8">n=2139</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1407, ROI=+13.4%">+13%<br><span style="font-size:0.7em; opacity:0.8">n=1407</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1056, ROI=+10.5%">+10%<br><span style="font-size:0.7em; opacity:0.8">n=1056</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=849, ROI=+8.4%">+8%<br><span style="font-size:0.7em; opacity:0.8">n=849</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=730, ROI=+2.9%">+3%<br><span style="font-size:0.7em; opacity:0.8">n=730</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=574, ROI=-0.7%">-1%<br><span style="font-size:0.7em; opacity:0.8">n=574</span></td>
+</tr>
+<tr><td class="label">0.35</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#3eb33e; color:#fff;" title="N=2176, ROI=+16.7%">+17%<br><span style="font-size:0.7em; opacity:0.8">n=2176</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1493, ROI=+11.9%">+12%<br><span style="font-size:0.7em; opacity:0.8">n=1493</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1140, ROI=+8.6%">+9%<br><span style="font-size:0.7em; opacity:0.8">n=1140</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=935, ROI=+3.5%">+3%<br><span style="font-size:0.7em; opacity:0.8">n=935</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=742, ROI=+0.6%">+1%<br><span style="font-size:0.7em; opacity:0.8">n=742</span></td>
+</tr>
+<tr><td class="label">0.40</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="muted">—</td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=2369, ROI=+11.1%">+11%<br><span style="font-size:0.7em; opacity:0.8">n=2369</span></td>
+<td class="cell-text" style="background:#90d090; color:#222;" title="N=1594, ROI=+5.8%">+6%<br><span style="font-size:0.7em; opacity:0.8">n=1594</span></td>
+<td class="cell-text" style="background:#d9efd9; color:#444;" title="N=1262, ROI=+1.9%">+2%<br><span style="font-size:0.7em; opacity:0.8">n=1262</span></td>
+<td class="cell-text" style="background:#ffe0e0; color:#444;" title="N=998, ROI=-2.0%">-2%<br><span style="font-size:0.7em; opacity:0.8">n=998</span></td>
+</tr>
+</tbody></table>
+<h2>Top robust setups: EXP_HIGH+MID ≥80%</h2>
+<p class="note">Most exclusive smart-money filter — sorted by holdout ROI, only cells with TRAIN+EV AND HOLDOUT+EV and N≥30 holdout</p>
+<table>
+<thead><tr><th>low</th><th>high</th><th>dur</th><th>train n</th><th>train ROI</th><th>hold n</th><th>hold ROI</th></tr></thead>
+<tbody>
+<tr><td>0.05</td><td>0.25</td><td>≤1h</td><td>83</td><td class="green">+59.0%</td><td>65</td><td class="green">+47.7%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>≤6h</td><td>409</td><td class="green">+73.6%</td><td>373</td><td class="green">+42.1%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤1h</td><td>114</td><td class="green">+75.4%</td><td>88</td><td class="green">+42.0%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>≤1h</td><td>70</td><td class="green">+57.1%</td><td>52</td><td class="green">+41.0%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤6h</td><td>115</td><td class="green">+42.6%</td><td>88</td><td class="green">+40.9%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>≤24h</td><td>442</td><td class="green">+69.7%</td><td>392</td><td class="green">+40.3%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>all</td><td>275</td><td class="green">+52.7%</td><td>229</td><td class="green">+39.7%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>all</td><td>466</td><td class="green">+60.9%</td><td>404</td><td class="green">+38.6%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>all</td><td>132</td><td class="green">+36.4%</td><td>104</td><td class="green">+38.5%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>≤6h</td><td>242</td><td class="green">+65.3%</td><td>204</td><td class="green">+37.3%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>≤24h</td><td>259</td><td class="green">+62.2%</td><td>219</td><td class="green">+37.0%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>≤6h</td><td>96</td><td class="green">+38.9%</td><td>71</td><td class="green">+36.2%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>all</td><td>179</td><td class="green">+42.5%</td><td>133</td><td class="green">+35.3%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤6h</td><td>155</td><td class="green">+54.8%</td><td>115</td><td class="green">+34.8%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>≤1h</td><td>327</td><td class="green">+92.7%</td><td>322</td><td class="green">+33.5%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤24h</td><td>126</td><td class="green">+42.9%</td><td>96</td><td class="green">+33.3%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤24h</td><td>169</td><td class="green">+50.9%</td><td>125</td><td class="green">+32.0%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>all</td><td>111</td><td class="green">+32.1%</td><td>86</td><td class="green">+31.8%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>all</td><td>1,290</td><td class="green">+20.5%</td><td>1,099</td><td class="green">+31.0%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>≤24h</td><td>1,249</td><td class="green">+22.1%</td><td>1,089</td><td class="green">+30.9%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>≤1h</td><td>192</td><td class="green">+80.6%</td><td>169</td><td class="green">+30.2%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>all</td><td>1,077</td><td class="green">+21.3%</td><td>880</td><td class="green">+29.5%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>≤6h</td><td>1,181</td><td class="green">+23.6%</td><td>1,051</td><td class="green">+29.4%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>≤24h</td><td>1,049</td><td class="green">+23.3%</td><td>873</td><td class="green">+29.1%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>≤1h</td><td>1,004</td><td class="green">+25.0%</td><td>934</td><td class="green">+28.5%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>≤6h</td><td>997</td><td class="green">+23.7%</td><td>834</td><td class="green">+27.1%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>all</td><td>543</td><td class="green">+20.6%</td><td>458</td><td class="green">+26.6%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>≤24h</td><td>106</td><td class="green">+38.4%</td><td>80</td><td class="green">+25.0%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤24h</td><td>524</td><td class="green">+24.0%</td><td>448</td><td class="green">+25.0%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>≤1h</td><td>844</td><td class="green">+23.2%</td><td>749</td><td class="green">+24.6%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤6h</td><td>487</td><td class="green">+25.3%</td><td>421</td><td class="green">+23.5%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>all</td><td>377</td><td class="green">+24.1%</td><td>321</td><td class="green">+23.4%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>all</td><td>1,722</td><td class="green">+25.9%</td><td>1,309</td><td class="green">+21.9%</td></tr>
+<tr><td>0.05</td><td>0.35</td><td>≤6h</td><td>80</td><td class="green">+42.9%</td><td>61</td><td class="green">+21.8%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>≤24h</td><td>1,683</td><td class="green">+26.0%</td><td>1,297</td><td class="green">+20.6%</td></tr>
+<tr><td>0.15</td><td>0.25</td><td>all</td><td>757</td><td class="green">+23.1%</td><td>625</td><td class="green">+20.3%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤1h</td><td>407</td><td class="green">+30.2%</td><td>366</td><td class="green">+20.2%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤24h</td><td>361</td><td class="green">+28.5%</td><td>314</td><td class="green">+19.7%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>≤6h</td><td>1,599</td><td class="green">+27.1%</td><td>1,261</td><td class="green">+19.6%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>all</td><td>2,226</td><td class="green">+21.6%</td><td>1,710</td><td class="green">+18.6%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>≤24h</td><td>2,200</td><td class="green">+21.9%</td><td>1,702</td><td class="green">+18.5%</td></tr>
+<tr><td>0.15</td><td>0.25</td><td>≤24h</td><td>724</td><td class="green">+23.8%</td><td>613</td><td class="green">+18.1%</td></tr>
+<tr><td>0.20</td><td>0.30</td><td>all</td><td>1,069</td><td class="green">+23.8%</td><td>793</td><td class="green">+17.7%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤6h</td><td>332</td><td class="green">+26.5%</td><td>289</td><td class="green">+17.6%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>≤6h</td><td>2,099</td><td class="green">+23.3%</td><td>1,667</td><td class="green">+17.6%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤1h</td><td>281</td><td class="green">+32.4%</td><td>254</td><td class="green">+16.5%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>≤6h</td><td>2,104</td><td class="green">+13.6%</td><td>1,716</td><td class="green">+16.4%</td></tr>
+<tr><td>0.25</td><td>0.30</td><td>all</td><td>1,932</td><td class="green">+23.0%</td><td>1,484</td><td class="green">+16.4%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>all</td><td>2,224</td><td class="green">+13.6%</td><td>1,752</td><td class="green">+16.3%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>≤24h</td><td>2,206</td><td class="green">+13.7%</td><td>1,746</td><td class="green">+16.3%</td></tr>
+</tbody></table>
+<h2>Top robust setups: EXP_HIGH+MID ≥50%</h2>
+<p class="note">Moderate smart-money filter (more events) — sorted by holdout ROI, only cells with TRAIN+EV AND HOLDOUT+EV and N≥30 holdout</p>
+<table>
+<thead><tr><th>low</th><th>high</th><th>dur</th><th>train n</th><th>train ROI</th><th>hold n</th><th>hold ROI</th></tr></thead>
+<tbody>
+<tr><td>0.05</td><td>0.10</td><td>≤6h</td><td>561</td><td class="green">+48.0%</td><td>483</td><td class="green">+53.2%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>≤24h</td><td>626</td><td class="green">+43.8%</td><td>513</td><td class="green">+50.1%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>≤1h</td><td>435</td><td class="green">+63.2%</td><td>401</td><td class="green">+47.1%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>all</td><td>675</td><td class="green">+36.3%</td><td>537</td><td class="green">+47.1%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>≤6h</td><td>359</td><td class="green">+41.1%</td><td>297</td><td class="green">+39.2%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>≤24h</td><td>407</td><td class="green">+34.3%</td><td>326</td><td class="green">+37.0%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>all</td><td>445</td><td class="green">+22.8%</td><td>352</td><td class="green">+36.4%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>≤1h</td><td>271</td><td class="green">+55.0%</td><td>226</td><td class="green">+35.7%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>≤24h</td><td>1,659</td><td class="green">+15.7%</td><td>1,410</td><td class="green">+33.3%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>all</td><td>1,735</td><td class="green">+15.0%</td><td>1,422</td><td class="green">+33.3%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>≤6h</td><td>1,542</td><td class="green">+16.7%</td><td>1,351</td><td class="green">+31.8%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>≤1h</td><td>1,273</td><td class="green">+19.0%</td><td>1,185</td><td class="green">+30.0%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>all</td><td>1,472</td><td class="green">+15.0%</td><td>1,134</td><td class="green">+27.6%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤1h</td><td>131</td><td class="green">+46.6%</td><td>107</td><td class="green">+27.1%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>≤24h</td><td>1,420</td><td class="green">+16.9%</td><td>1,123</td><td class="green">+27.0%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤6h</td><td>255</td><td class="green">+31.4%</td><td>193</td><td class="green">+26.9%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>≤1h</td><td>112</td><td class="green">+31.0%</td><td>82</td><td class="green">+26.0%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>≤6h</td><td>1,320</td><td class="green">+17.2%</td><td>1,067</td><td class="green">+25.6%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>all</td><td>597</td><td class="green">+21.3%</td><td>510</td><td class="green">+24.7%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>all</td><td>326</td><td class="green">+13.5%</td><td>245</td><td class="green">+24.5%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>all</td><td>2,231</td><td class="green">+21.2%</td><td>1,689</td><td class="green">+24.1%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤1h</td><td>179</td><td class="green">+45.3%</td><td>137</td><td class="green">+24.1%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>≤24h</td><td>2,164</td><td class="green">+21.4%</td><td>1,669</td><td class="green">+22.9%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>≤6h</td><td>2,034</td><td class="green">+22.9%</td><td>1,615</td><td class="green">+22.6%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>all</td><td>842</td><td class="green">+20.5%</td><td>698</td><td class="green">+22.5%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤24h</td><td>543</td><td class="green">+23.0%</td><td>490</td><td class="green">+22.4%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>≤1h</td><td>1,082</td><td class="green">+21.4%</td><td>928</td><td class="green">+22.1%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>all</td><td>250</td><td class="green">+15.2%</td><td>204</td><td class="green">+21.6%</td></tr>
+<tr><td>0.15</td><td>0.25</td><td>all</td><td>1,110</td><td class="green">+11.7%</td><td>889</td><td class="green">+21.5%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>≤1h</td><td>1,703</td><td class="green">+23.1%</td><td>1,450</td><td class="green">+21.4%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤24h</td><td>777</td><td class="green">+22.9%</td><td>676</td><td class="green">+21.3%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤24h</td><td>289</td><td class="green">+26.3%</td><td>219</td><td class="green">+21.0%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤6h</td><td>712</td><td class="green">+25.0%</td><td>621</td><td class="green">+20.8%</td></tr>
+<tr><td>0.15</td><td>0.25</td><td>≤24h</td><td>1,034</td><td class="green">+13.7%</td><td>868</td><td class="green">+20.7%</td></tr>
+<tr><td>0.15</td><td>0.25</td><td>≤6h</td><td>941</td><td class="green">+14.3%</td><td>811</td><td class="green">+19.4%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤6h</td><td>481</td><td class="green">+21.4%</td><td>437</td><td class="green">+18.1%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤1h</td><td>564</td><td class="green">+33.0%</td><td>504</td><td class="green">+18.1%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤6h</td><td>187</td><td class="green">+30.5%</td><td>157</td><td class="green">+17.2%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>all</td><td>2,841</td><td class="green">+20.4%</td><td>2,139</td><td class="green">+17.1%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤24h</td><td>223</td><td class="green">+27.4%</td><td>181</td><td class="green">+17.1%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>≤24h</td><td>2,795</td><td class="green">+20.7%</td><td>2,130</td><td class="green">+17.1%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>≤6h</td><td>2,609</td><td class="green">+12.3%</td><td>2,113</td><td class="green">+16.9%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>all</td><td>2,806</td><td class="green">+11.6%</td><td>2,176</td><td class="green">+16.7%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>≤24h</td><td>2,768</td><td class="green">+12.0%</td><td>2,160</td><td class="green">+16.6%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤1h</td><td>382</td><td class="green">+33.0%</td><td>354</td><td class="green">+16.4%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>≤6h</td><td>2,626</td><td class="green">+22.3%</td><td>2,075</td><td class="green">+15.9%</td></tr>
+<tr><td>0.15</td><td>0.25</td><td>≤1h</td><td>757</td><td class="green">+21.0%</td><td>682</td><td class="green">+15.5%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>≤1h</td><td>2,221</td><td class="green">+13.9%</td><td>1,910</td><td class="green">+14.9%</td></tr>
+<tr><td>0.25</td><td>0.30</td><td>all</td><td>2,470</td><td class="green">+20.4%</td><td>1,853</td><td class="green">+14.2%</td></tr>
+<tr><td>0.20</td><td>0.30</td><td>all</td><td>1,476</td><td class="green">+18.8%</td><td>1,105</td><td class="green">+14.0%</td></tr>
+</tbody></table>
+<h2>Top robust setups: nw≥4 + EXP_HIGH+MID ≥50%</h2>
+<p class="note">Smart-money + ≥4 wallets (excludes single-wallet pumps) — sorted by holdout ROI, only cells with TRAIN+EV AND HOLDOUT+EV and N≥30 holdout</p>
+<table>
+<thead><tr><th>low</th><th>high</th><th>dur</th><th>train n</th><th>train ROI</th><th>hold n</th><th>hold ROI</th></tr></thead>
+<tbody>
+<tr><td>0.05</td><td>0.10</td><td>≤6h</td><td>188</td><td class="green">+1.1%</td><td>188</td><td class="green">+86.2%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>≤1h</td><td>121</td><td class="green">+15.7%</td><td>140</td><td class="green">+78.6%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>≤1h</td><td>97</td><td class="green">+23.7%</td><td>100</td><td class="green">+66.7%</td></tr>
+<tr><td>0.05</td><td>0.15</td><td>≤6h</td><td>152</td><td class="green">+5.3%</td><td>147</td><td class="green">+63.3%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>≤1h</td><td>298</td><td class="green">+16.8%</td><td>353</td><td class="green">+48.4%</td></tr>
+<tr><td>0.15</td><td>0.20</td><td>≤1h</td><td>289</td><td class="green">+3.8%</td><td>338</td><td class="green">+47.9%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤6h</td><td>279</td><td class="green">+14.7%</td><td>276</td><td class="green">+44.9%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>≤6h</td><td>432</td><td class="green">+15.7%</td><td>425</td><td class="green">+43.1%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤1h</td><td>182</td><td class="green">+23.6%</td><td>190</td><td class="green">+42.1%</td></tr>
+<tr><td>0.10</td><td>0.15</td><td>≤1h</td><td>234</td><td class="green">+2.6%</td><td>230</td><td class="green">+42.0%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>all</td><td>552</td><td class="green">+11.6%</td><td>462</td><td class="green">+42.0%</td></tr>
+<tr><td>0.20</td><td>0.25</td><td>≤24h</td><td>504</td><td class="green">+12.7%</td><td>450</td><td class="green">+40.4%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>≤24h</td><td>322</td><td class="green">+8.7%</td><td>312</td><td class="green">+39.4%</td></tr>
+<tr><td>0.10</td><td>0.20</td><td>all</td><td>376</td><td class="green">+7.7%</td><td>332</td><td class="green">+38.6%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤1h</td><td>55</td><td class="green">+38.2%</td><td>64</td><td class="green">+37.5%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>all</td><td>311</td><td class="green">+9.3%</td><td>271</td><td class="green">+35.8%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤24h</td><td>260</td><td class="green">+9.2%</td><td>253</td><td class="green">+34.4%</td></tr>
+<tr><td>0.15</td><td>0.25</td><td>≤1h</td><td>219</td><td class="green">+2.3%</td><td>229</td><td class="green">+32.8%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤6h</td><td>209</td><td class="green">+5.3%</td><td>211</td><td class="green">+30.8%</td></tr>
+<tr><td>0.20</td><td>0.30</td><td>≤1h</td><td>269</td><td class="green">+22.7%</td><td>297</td><td class="green">+30.2%</td></tr>
+<tr><td>0.10</td><td>0.25</td><td>≤1h</td><td>140</td><td class="green">+22.9%</td><td>148</td><td class="green">+29.7%</td></tr>
+<tr><td>0.20</td><td>0.30</td><td>all</td><td>563</td><td class="green">+5.4%</td><td>437</td><td class="green">+28.1%</td></tr>
+<tr><td>0.20</td><td>0.30</td><td>≤6h</td><td>392</td><td class="green">+14.8%</td><td>385</td><td class="green">+28.1%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤6h</td><td>124</td><td class="green">+12.9%</td><td>121</td><td class="green">+28.1%</td></tr>
+<tr><td>0.20</td><td>0.30</td><td>≤24h</td><td>488</td><td class="green">+12.7%</td><td>418</td><td class="green">+27.6%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>≤6h</td><td>507</td><td class="green">+7.0%</td><td>549</td><td class="green">+27.0%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>≤1h</td><td>350</td><td class="green">+5.0%</td><td>444</td><td class="green">+26.7%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>all</td><td>625</td><td class="green">+3.6%</td><td>581</td><td class="green">+25.6%</td></tr>
+<tr><td>0.40</td><td>0.45</td><td>≤6h</td><td>539</td><td class="green">+6.4%</td><td>588</td><td class="green">+25.1%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤1h</td><td>75</td><td class="green">+33.3%</td><td>80</td><td class="green">+25.0%</td></tr>
+<tr><td>0.35</td><td>0.40</td><td>≤24h</td><td>599</td><td class="green">+5.2%</td><td>572</td><td class="green">+25.0%</td></tr>
+<tr><td>0.30</td><td>0.40</td><td>≤1h</td><td>324</td><td class="green">+15.0%</td><td>361</td><td class="green">+24.7%</td></tr>
+<tr><td>0.30</td><td>0.40</td><td>≤6h</td><td>489</td><td class="green">+13.5%</td><td>467</td><td class="green">+23.7%</td></tr>
+<tr><td>0.40</td><td>0.45</td><td>≤1h</td><td>368</td><td class="green">+8.7%</td><td>496</td><td class="green">+23.7%</td></tr>
+<tr><td>0.30</td><td>0.40</td><td>all</td><td>647</td><td class="green">+5.9%</td><td>531</td><td class="green">+23.4%</td></tr>
+<tr><td>0.30</td><td>0.40</td><td>≤24h</td><td>594</td><td class="green">+8.2%</td><td>517</td><td class="green">+23.3%</td></tr>
+<tr><td>0.40</td><td>0.45</td><td>all</td><td>663</td><td class="green">+5.2%</td><td>620</td><td class="green">+22.9%</td></tr>
+<tr><td>0.40</td><td>0.45</td><td>≤24h</td><td>630</td><td class="green">+4.8%</td><td>619</td><td class="green">+22.8%</td></tr>
+<tr><td>0.25</td><td>0.30</td><td>≤1h</td><td>336</td><td class="green">+19.0%</td><td>398</td><td class="green">+22.3%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>≤24h</td><td>631</td><td class="green">+15.5%</td><td>590</td><td class="green">+20.6%</td></tr>
+<tr><td>0.25</td><td>0.30</td><td>all</td><td>618</td><td class="green">+6.3%</td><td>509</td><td class="green">+20.5%</td></tr>
+<tr><td>0.25</td><td>0.30</td><td>≤24h</td><td>576</td><td class="green">+8.8%</td><td>504</td><td class="green">+20.4%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>all</td><td>662</td><td class="green">+13.9%</td><td>595</td><td class="green">+20.0%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤24h</td><td>122</td><td class="green">+11.5%</td><td>120</td><td class="green">+20.0%</td></tr>
+<tr><td>0.25</td><td>0.30</td><td>≤6h</td><td>484</td><td class="green">+13.6%</td><td>478</td><td class="green">+19.9%</td></tr>
+<tr><td>0.30</td><td>0.45</td><td>≤24h</td><td>520</td><td class="green">+0.4%</td><td>447</td><td class="green">+18.8%</td></tr>
+<tr><td>0.10</td><td>0.30</td><td>all</td><td>286</td><td class="green">+0.2%</td><td>239</td><td class="green">+18.5%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤6h</td><td>91</td><td class="green">+14.3%</td><td>98</td><td class="green">+18.4%</td></tr>
+<tr><td>0.30</td><td>0.35</td><td>≤1h</td><td>356</td><td class="green">+14.8%</td><td>486</td><td class="green">+18.2%</td></tr>
+<tr><td>0.05</td><td>0.20</td><td>≤24h</td><td>149</td><td class="green">+7.4%</td><td>144</td><td class="green">+18.1%</td></tr>
+</tbody></table>
+<h2>Fade signal: FRESH+NEW+SEMI ≥50% USD share</h2>
+<p class="note">Cells where retail-FOMO domination predicts losses in BOTH train and holdout (228 of 240 cells confirm)</p>
+<table><thead><tr><th>low</th><th>high</th><th>dur</th><th>train n</th><th>train ROI</th><th>hold n</th><th>hold ROI</th></tr></thead><tbody>
+<tr><td>0.05</td><td>0.55</td><td>≤1h</td><td>99</td><td class="red">-22.9%</td><td>41</td><td class="red">-51.2%</td></tr>
+<tr><td>0.05</td><td>0.35</td><td>≤1h</td><td>208</td><td class="red">-25.8%</td><td>94</td><td class="red">-48.3%</td></tr>
+<tr><td>0.05</td><td>0.45</td><td>≤1h</td><td>160</td><td class="red">-27.8%</td><td>55</td><td class="red">-47.5%</td></tr>
+<tr><td>0.05</td><td>0.60</td><td>≤1h</td><td>83</td><td class="red">-27.7%</td><td>38</td><td class="red">-47.4%</td></tr>
+<tr><td>0.05</td><td>0.50</td><td>≤1h</td><td>114</td><td class="red">-15.8%</td><td>49</td><td class="red">-46.9%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>≤1h</td><td>248</td><td class="red">-15.3%</td><td>109</td><td class="red">-45.0%</td></tr>
+<tr><td>0.05</td><td>0.40</td><td>≤1h</td><td>179</td><td class="red">-27.4%</td><td>68</td><td class="red">-44.9%</td></tr>
+<tr><td>0.05</td><td>0.35</td><td>≤6h</td><td>266</td><td class="red">-25.9%</td><td>118</td><td class="red">-44.3%</td></tr>
+<tr><td>0.05</td><td>0.40</td><td>≤6h</td><td>228</td><td class="red">-27.6%</td><td>94</td><td class="red">-44.1%</td></tr>
+<tr><td>0.05</td><td>0.55</td><td>≤6h</td><td>137</td><td class="red">-24.4%</td><td>55</td><td class="red">-43.8%</td></tr>
+<tr><td>0.05</td><td>0.60</td><td>≤6h</td><td>120</td><td class="red">-31.9%</td><td>53</td><td class="red">-43.4%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>≤6h</td><td>320</td><td class="red">-17.7%</td><td>139</td><td class="red">-42.4%</td></tr>
+<tr><td>0.05</td><td>0.60</td><td>≤24h</td><td>136</td><td class="red">-30.1%</td><td>60</td><td class="red">-41.7%</td></tr>
+<tr><td>0.05</td><td>0.45</td><td>≤6h</td><td>206</td><td class="red">-27.7%</td><td>76</td><td class="red">-41.5%</td></tr>
+<tr><td>0.05</td><td>0.55</td><td>≤24h</td><td>154</td><td class="red">-23.3%</td><td>61</td><td class="red">-40.4%</td></tr>
+<tr><td>0.05</td><td>0.35</td><td>≤24h</td><td>302</td><td class="red">-29.0%</td><td>129</td><td class="red">-40.2%</td></tr>
+<tr><td>0.05</td><td>0.50</td><td>≤6h</td><td>155</td><td class="red">-20.0%</td><td>63</td><td class="red">-39.7%</td></tr>
+<tr><td>0.05</td><td>0.40</td><td>≤24h</td><td>260</td><td class="red">-27.9%</td><td>103</td><td class="red">-39.3%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>≤24h</td><td>359</td><td class="red">-23.9%</td><td>148</td><td class="red">-39.2%</td></tr>
+<tr><td>0.10</td><td>0.45</td><td>≤1h</td><td>345</td><td class="red">-31.7%</td><td>116</td><td class="red">-38.7%</td></tr>
+<tr><td>0.05</td><td>0.60</td><td>all</td><td>184</td><td class="red">-31.2%</td><td>65</td><td class="red">-38.5%</td></tr>
+<tr><td>0.10</td><td>0.60</td><td>≤1h</td><td>188</td><td class="red">-30.9%</td><td>65</td><td class="red">-38.5%</td></tr>
+<tr><td>0.15</td><td>0.55</td><td>≤1h</td><td>336</td><td class="red">-24.8%</td><td>121</td><td class="red">-38.4%</td></tr>
+<tr><td>0.05</td><td>0.35</td><td>all</td><td>355</td><td class="red">-29.2%</td><td>138</td><td class="red">-37.9%</td></tr>
+<tr><td>0.10</td><td>0.55</td><td>≤1h</td><td>220</td><td class="red">-28.9%</td><td>79</td><td class="red">-37.9%</td></tr>
+<tr><td>0.10</td><td>0.40</td><td>≤1h</td><td>398</td><td class="red">-30.9%</td><td>148</td><td class="red">-37.5%</td></tr>
+<tr><td>0.10</td><td>0.35</td><td>≤1h</td><td>484</td><td class="red">-26.8%</td><td>201</td><td class="red">-37.5%</td></tr>
+<tr><td>0.15</td><td>0.60</td><td>≤1h</td><td>283</td><td class="red">-25.2%</td><td>95</td><td class="red">-36.8%</td></tr>
+<tr><td>0.05</td><td>0.10</td><td>≤1h</td><td>1,241</td><td class="red">-13.0%</td><td>458</td><td class="red">-36.7%</td></tr>
+<tr><td>0.10</td><td>0.60</td><td>≤6h</td><td>242</td><td class="red">-29.1%</td><td>84</td><td class="red">-36.5%</td></tr>
+<tr><td>0.10</td><td>0.40</td><td>≤6h</td><td>483</td><td class="red">-28.6%</td><td>177</td><td class="red">-36.4%</td></tr>
+<tr><td>0.05</td><td>0.40</td><td>all</td><td>312</td><td class="red">-28.7%</td><td>110</td><td class="red">-36.4%</td></tr>
+<tr><td>0.05</td><td>0.30</td><td>all</td><td>418</td><td class="red">-22.6%</td><td>157</td><td class="red">-36.3%</td></tr>
+<tr><td>0.05</td><td>0.25</td><td>≤1h</td><td>317</td><td class="red">-15.5%</td><td>125</td><td class="red">-36.0%</td></tr>
+<tr><td>0.05</td><td>0.45</td><td>≤24h</td><td>231</td><td class="red">-27.8%</td><td>83</td><td class="red">-35.7%</td></tr>
+<tr><td>0.10</td><td>0.60</td><td>≤24h</td><td>276</td><td class="red">-27.5%</td><td>93</td><td class="red">-35.5%</td></tr>
+<tr><td>0.10</td><td>0.35</td><td>≤6h</td><td>601</td><td class="red">-23.5%</td><td>242</td><td class="red">-35.1%</td></tr>
+<tr><td>0.10</td><td>0.60</td><td>all</td><td>352</td><td class="red">-28.5%</td><td>100</td><td class="red">-35.0%</td></tr>
+<tr><td>0.05</td><td>0.55</td><td>all</td><td>205</td><td class="red">-28.2%</td><td>67</td><td class="red">-34.9%</td></tr>
+<tr><td>0.10</td><td>0.30</td><td>≤6h</td><td>762</td><td class="red">-20.4%</td><td>291</td><td class="red">-34.7%</td></tr>
+</tbody></table>
+<h2>Filter robustness summary</h2>
+<table><thead><tr><th>Filter</th><th>Total cells</th><th>+EV both train+hold</th><th>-EV both</th><th>flip</th><th>% robust</th></tr></thead><tbody>
+<tr><td class="label">baseline</td><td>240</td><td class="green">36</td><td>175</td><td>29</td><td>15%</td></tr>
+<tr><td class="label">EXP_HIGH+MID ≥50%</td><td>240</td><td class="green">135</td><td>45</td><td>60</td><td>56%</td></tr>
+<tr><td class="label">EXP_HIGH+MID ≥80%</td><td>240</td><td class="green">145</td><td>33</td><td>62</td><td>60%</td></tr>
+<tr><td class="label">nw≥4 + EXP_HIGH+MID ≥50%</td><td>240</td><td class="green">114</td><td>37</td><td>89</td><td>48%</td></tr>
+<tr><td class="label">FRESH+NEW+SEMI ≥50% (fade)</td><td>240</td><td class="green">0</td><td>228</td><td>12</td><td>0%</td></tr>
+</tbody></table>
+</body></html>
